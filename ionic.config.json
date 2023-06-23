@@ -1,0 +1,7 @@
+{
+  "name": "Woofit",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
