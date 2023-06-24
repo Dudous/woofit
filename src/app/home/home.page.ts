@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AlertController, NavController,  ToastController, } from '@ionic/angular';
+import { DogApiService } from 'src/services/dog-api.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,20 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  dados: any;
 
+  constructor(
+  //  public mensagem: ToastController,
+  //  public nav: NavController,
+  //  private dog: DogApiService,
+  ) {}
+
+//  RandomDog() {
+    
+  //   this.dog.RandomImg().subscribe(
+  //     (resp) => {
+  //       this.dog = resp;
+  //     }
+  //   )
+  // }
 }
