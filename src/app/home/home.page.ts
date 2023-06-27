@@ -1,21 +1,26 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AlertController, NavController, ToastController, } from '@ionic/angular';
+import {
+  AlertController,
+  NavController,
+  ToastController,
+} from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { DogService } from 'src/services/dog-service.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-
 export class HomePage {
+  
   public url = 'https://dog.ceo/api/breeds/image/random';
   public image = '';
   public result: any = {};
-  dog ={nome: '', idade: ''};
+  dog = { nome: '', idade: '', imagem: '' };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private mensagem: ToastController, public servico: DogService) {}
 
   RandomDog() {
     this.consultaApi().subscribe(
@@ -23,7 +28,7 @@ export class HomePage {
         this.result = resp;
         this.image = this.result.message;
       },
-      (error) => { }
+      (error) => {}
     );
   }
 
@@ -31,10 +36,35 @@ export class HomePage {
     return this.http.get(this.url);
   }
 
-  Cadastrar(){
-    this.dog.nome = ''
-    this.dog.idade = ''
-    alert("Teste")
+  gerar() {
+    return new Promise<string>(async (resolve, reject) => {
+      try {
+        const resp = await this.consultaApi().toPromise();
+        this.result = resp;
+        resolve(this.result.message);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 
+  async Cadastrar() {
+    if (this.dog.nome == '' || this.dog.idade == '') {
+      this.exibeToast('Preencha os campos necessários', 'danger');
+    } else {
+      this.servico.Salvar(this.dog.nome, this.dog.idade, this.dog.imagem)
+    }
+  }
+
+  async exibeToast(msg: string, cor: string) {
+    const toast = await this.mensagem.create({
+      message: msg,
+      duration: 2000,
+      position: 'top',
+      animated: true,
+      color: cor,
+    });
+
+    toast.present();
   }
 }
