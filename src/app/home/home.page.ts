@@ -1,28 +1,40 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController,  ToastController, } from '@ionic/angular';
-import { DogApiService } from 'src/services/dog-api.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AlertController, NavController, ToastController, } from '@ionic/angular';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage {
+  public url = 'https://dog.ceo/api/breeds/image/random';
+  public image = '';
+  public result: any = {};
+  dog ={nome: '', idade: ''};
 
-  dados: any;
+  constructor(private http: HttpClient) { }
 
-  constructor(
-  //  public mensagem: ToastController,
-  //  public nav: NavController,
-  //  private dog: DogApiService,
-  ) {}
+  RandomDog() {
+    this.consultaApi().subscribe(
+      (resp) => {
+        this.result = resp;
+        this.image = this.result.message;
+      },
+      (error) => { }
+    );
+  }
 
-//  RandomDog() {
-    
-  //   this.dog.RandomImg().subscribe(
-  //     (resp) => {
-  //       this.dog = resp;
-  //     }
-  //   )
-  // }
+  consultaApi() {
+    return this.http.get(this.url);
+  }
+
+  Cadastrar(){
+    this.dog.nome = ''
+    this.dog.idade = ''
+    alert("Teste")
+
+  }
 }
