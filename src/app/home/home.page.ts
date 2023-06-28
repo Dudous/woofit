@@ -55,6 +55,8 @@ export class HomePage {
       this.dog.imagem = await this.gerar();
       this.servico.Salvar(this.dog.nome, this.dog.idade, this.dog.imagem)
       this.nav.navigateForward('/detalhes')
+      this.dog.nome = ''
+      this.dog.idade = ''
     }
   }
 

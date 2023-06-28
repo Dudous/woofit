@@ -8,7 +8,6 @@ import { DogService } from 'src/services/dog-service.service';
   styleUrls: ['./detalhes.page.scss'],
 })
 export class DetalhesPage implements OnInit {
-
   dog = { nome: '', idade: '', imagem: '' };
   public dogs: any[] = [];
 
@@ -16,23 +15,23 @@ export class DetalhesPage implements OnInit {
     public nav: NavController,
     public alerta: AlertController,
     public servicos: DogService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.carregaDados();
   }
 
   carregaDados() {
-    if(this.servicos.listar()){
+    if (this.servicos.listar()) {
       this.dogs = this.servicos.listar()!;
-      
-      if (this.dogs.length == 0) {
-        this.voltar()
-      }
-}
-}
 
-  Deletar(imagem: string){
+      if (this.dogs.length == 0) {
+        this.voltar();
+      }
+    }
+  }
+
+  Deletar(imagem: string) {
     this.servicos.deletar(imagem);
     this.carregaDados();
   }
@@ -52,5 +51,26 @@ export class DetalhesPage implements OnInit {
     });
 
     await voltando.present();
+  }
+
+  async novo() {
+    const adicionando = await this.alerta.create({
+      header: 'ATENÇÃO!',
+      message: 'Deseja adicionar um novo endereço?',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.nav.navigateRoot('/');
+          },
+        },
+        {
+          text: 'Cancelar',
+          handler: () => {},
+        },
+      ],
+    });
+
+    await adicionando.present();
   }
 }
