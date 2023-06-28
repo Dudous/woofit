@@ -7,7 +7,6 @@ export class DogService {
   
   colecaoDogs: any[] = [];
   key = 'dogs';
-  
 
   constructor() { }
 
@@ -41,4 +40,5 @@ export class DogService {
 
     localStorage.setItem(this.key, JSON.stringify(result))
   }
+  
 }

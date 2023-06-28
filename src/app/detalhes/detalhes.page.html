@@ -1,0 +1,39 @@
+<ion-content [fullscreen]="true">
+  <div *ngFor="let list of dogs">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title
+          >{{list.nome}}</ion-card-title
+        >
+        <ion-card-subtitle
+          >{{list.idade}}</ion-card-subtitle
+        >
+      </ion-card-header>
+      <ion-card-content>
+        <img alt="imagem" src="{{list.imagem}}" />
+        <ion-row>
+          <ion-col size="8"></ion-col>
+
+          <ion-col size="4">
+            <ion-button size="small" color="danger">
+              <ion-icon name="trash-outline"></ion-icon>
+              <ion-label style="margin-top: 0; margin-left: 6px"
+                >Excluir</ion-label
+              >
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-fab
+    slot="fixed"
+    vertical="bottom"
+    horizontal="end"
+    style="margin-right: 1rem"
+  >
+    <ion-fab-button color="dark">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

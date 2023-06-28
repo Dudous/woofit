@@ -20,7 +20,7 @@ export class HomePage {
   public result: any = {};
   dog = { nome: '', idade: '', imagem: '' };
 
-  constructor(private http: HttpClient, private mensagem: ToastController, public servico: DogService) {}
+  constructor(private http: HttpClient, private mensagem: ToastController, public servico: DogService, public nav: NavController) {}
 
   RandomDog() {
     this.consultaApi().subscribe(
@@ -52,9 +52,12 @@ export class HomePage {
     if (this.dog.nome == '' || this.dog.idade == '') {
       this.exibeToast('Preencha os campos necessários', 'danger');
     } else {
+      this.dog.imagem = await this.gerar();
       this.servico.Salvar(this.dog.nome, this.dog.idade, this.dog.imagem)
+      this.nav.navigateForward('/detalhes')
     }
   }
+
 
   async exibeToast(msg: string, cor: string) {
     const toast = await this.mensagem.create({
