@@ -36,7 +36,7 @@ export class DogService {
 
   deletar(param: any){
     const values = this.listar();
-    const result = values?.filter(dog => dog.nome !== param);
+    const result = values?.filter(dog => dog.imagem !== param);
 
     localStorage.setItem(this.key, JSON.stringify(result))
   }

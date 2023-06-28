@@ -25,6 +25,32 @@ export class DetalhesPage implements OnInit {
   carregaDados() {
     if(this.servicos.listar()){
       this.dogs = this.servicos.listar()!;
+      
+      if (this.dogs.length == 0) {
+        this.voltar()
+      }
 }
 }
+
+  Deletar(imagem: string){
+    this.servicos.deletar(imagem);
+    this.carregaDados();
+  }
+
+  async voltar() {
+    const voltando = await this.alerta.create({
+      header: 'ATENÇÃO!',
+      message: 'Nenhum cachorro encontrado, cadastre um novo!',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.nav.navigateBack('/');
+          },
+        },
+      ],
+    });
+
+    await voltando.present();
+  }
 }
