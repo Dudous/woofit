@@ -1,6 +1,6 @@
-<ion-content no-scroll padding class="background"[fullscreen]="true">
+<ion-content no-scroll padding class="background" [fullscreen]="true" [scrollEvents]="true">
   <div class="logo-div" class="lcs">
-    <img src="../../assets/Logo.png" alt="logo-lukinhaz" class="logo">
+    <img src="../../assets/Logo.png" alt="logo-lukinhaz" class="logo" />
   </div>
   <div>
     <ion-row style="margin-top: 30px">
@@ -10,7 +10,7 @@
             >Nome <span style="color: red">*</span></ion-label
           >
           <ion-input
-          class="font"
+            class="font"
             [(ngModel)]="dog.nome"
             type="text"
             expand="block"
@@ -27,8 +27,9 @@
             >Idade <span style="color: red">*</span></ion-label
           >
           <ion-input
-          class="font"
-          [(ngModel)]="dog.idade"
+            (click)="scroll()"
+            class="font"
+            [(ngModel)]="dog.idade"
             expand="block"
             style="color: #222"
             placeholder="Idade"
@@ -41,7 +42,9 @@
 <ion-footer>
   <ion-row>
     <ion-col class="Cadastrar">
-      <ion-button color="dark" class="font" shape="block" (click)="Cadastrar()">Cadastrar</ion-button>
+      <ion-button color="dark" class="font" shape="block" (click)="Cadastrar()"
+        >Cadastrar</ion-button
+      >
     </ion-col>
   </ion-row>
 </ion-footer>

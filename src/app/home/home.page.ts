@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   AlertController,
@@ -7,6 +7,7 @@ import {
 } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { DogService } from 'src/services/dog-service.service';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,19 @@ import { DogService } from 'src/services/dog-service.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  
+  @ViewChild(IonContent)
+  content!: IonContent;
   public url = 'https://dog.ceo/api/breeds/image/random';
   public image = '';
   public result: any = {};
   dog = { nome: '', idade: '', imagem: '' };
 
-  constructor(private http: HttpClient, private mensagem: ToastController, public servico: DogService, public nav: NavController) {}
+  constructor(
+    private http: HttpClient,
+    private mensagem: ToastController,
+    public servico: DogService,
+    public nav: NavController
+  ) {}
 
   RandomDog() {
     this.consultaApi().subscribe(
@@ -53,13 +60,12 @@ export class HomePage {
       this.exibeToast('Preencha os campos necessários', 'danger');
     } else {
       this.dog.imagem = await this.gerar();
-      this.servico.Salvar(this.dog.nome, this.dog.idade, this.dog.imagem)
-      this.nav.navigateForward('/detalhes')
-      this.dog.nome = ''
-      this.dog.idade = ''
+      this.servico.Salvar(this.dog.nome, this.dog.idade, this.dog.imagem);
+      this.nav.navigateForward('/detalhes');
+      this.dog.nome = '';
+      this.dog.idade = '';
     }
   }
-
 
   async exibeToast(msg: string, cor: string) {
     const toast = await this.mensagem.create({
@@ -71,5 +77,12 @@ export class HomePage {
     });
 
     toast.present();
+  }
+
+  scroll() {
+    setTimeout(() => {
+      
+      this.content.scrollToBottom(500);
+    }, 150);
   }
 }
