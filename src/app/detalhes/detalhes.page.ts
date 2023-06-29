@@ -31,8 +31,26 @@ export class DetalhesPage implements OnInit {
     }
   }
 
-  Deletar(imagem: string) {
-    this.servicos.deletar(imagem);
+  async Deletar(imagem: string) {
+    const deletando = await this.alerta.create({
+      header: 'ATENÇÃO!',
+      message: 'Deseja excluir esse cadastro!',
+      buttons: [
+        {
+          text: 'Sim',
+          handler: () => {
+            this.servicos.deletar(imagem);
+            this.carregaDados();
+          },
+        },
+        {
+          text: 'Cancelar',
+          handler: () => {},
+        },
+      ],
+    });
+
+    await deletando.present();
     this.carregaDados();
   }
 
