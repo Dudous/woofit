@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DogService {
-  
   colecaoDogs: any[] = [];
   key = 'dogs';
 
-  constructor() { }
+  constructor() {}
 
   Salvar(nomes: string, idades: string, imagens: string) {
     const dados = { nome: nomes, idade: idades, imagem: imagens };
@@ -34,11 +33,10 @@ export class DogService {
     return colecao;
   }
 
-  deletar(param: any){
+  deletar(param: any) {
     const values = this.listar();
-    const result = values?.filter(dog => dog.imagem !== param);
+    const result = values?.filter((dog) => dog.imagem !== param);
 
-    localStorage.setItem(this.key, JSON.stringify(result))
+    localStorage.setItem(this.key, JSON.stringify(result));
   }
-  
 }
